@@ -1,9 +1,7 @@
 <template>
-  <v-app>
-    <v-main>
-      <router-view></router-view>
-    </v-main>
-  </v-app>
+  <div id="app">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
@@ -13,9 +11,6 @@ export default {
 </script>
 
 <style>
-@import '~@mdi/font/css/materialdesignicons.css';
-@import '~vuetify/styles';
-
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
