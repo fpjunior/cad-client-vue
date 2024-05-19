@@ -7,14 +7,8 @@ export const fetchProducts = () => {
   return ajax.getJSON(`${API_URL}/products`).pipe(map(response => response));
 };
 
-export const updateProduct = (product) => {
-  return ajax.put(`${API_URL}/products/${product.id}`, product, {
-    'Content-Type': 'application/json'
-  }).pipe(map(response => response));
-};
-
-export const addClient = (client) => {
-  return ajax.post(`${API_URL}/clients`, client, {
+export const addProduct = (product) => {
+  return ajax.post(`${API_URL}/products`, product, {
     'Content-Type': 'application/json'
   }).pipe(map(response => response));
 };
