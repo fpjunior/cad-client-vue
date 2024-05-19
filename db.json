@@ -1,0 +1,11 @@
+{
+    "products": [
+      { "id": 1, "name": "Product 1", "active": true },
+      { "id": 2, "name": "Product 2", "active": false }
+    ],
+    "clients": [
+      { "id": 1, "name": "Client 1", "document": "123456789", "phone": "123-456-7890", "email": "client1@example.com", "active": true },
+      { "id": 2, "name": "Client 2", "document": "987654321", "phone": "098-765-4321", "email": "client2@example.com", "active": false }
+    ]
+  }
+  
