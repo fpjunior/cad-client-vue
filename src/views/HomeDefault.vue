@@ -1,15 +1,20 @@
 <template>
-  <v-container>
-    <h1>Home</h1>
-    <v-btn color="primary" to="/products">Manage Products</v-btn>
-    <v-btn color="primary" to="/clients">Manage Clients</v-btn>
-    <v-btn color="primary" to="/associate">Associate Products to Clients</v-btn>
-  </v-container>
+  <div class="p-m-4">
+    <h1 class="text-center">Home</h1>
+    <Button label="Manage Products" icon="pi pi-check" class="p-m-2" @click="navigate('/products')"></Button>
+    <Button label="Manage Clients" icon="pi pi-users" class="p-m-2" @click="navigate('/clients')"></Button>
+    <Button label="Associate Products to Clients" icon="pi pi-link" class="p-m-2" @click="navigate('/associate')"></Button>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'HomeDefault'
+  name: 'HomeDefault',
+  methods: {
+    navigate(path) {
+      this.$router.push(path);
+    }
+  }
 };
 </script>
 

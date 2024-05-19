@@ -1,33 +1,12 @@
 <template>
   <v-card class="pa-4">
     <h2>New Client</h2>
-    <v-form @submit.prevent="addClient">
-      <v-text-field
-        v-model="name"
-        label="Name"
-        required
-      ></v-text-field>
-      <v-text-field
-        v-model="document"
-        label="Document"
-        required
-      ></v-text-field>
-      <v-text-field
-        v-model="phone"
-        label="Phone"
-        required
-      ></v-text-field>
-      <v-text-field
-        v-model="email"
-        label="Email"
-        required
-      ></v-text-field>
-      <v-select
-        v-model="active"
-        :items="['true', 'false']"
-        label="Active"
-        required
-      ></v-select>
+    <v-form @submit.prevent="submitClient">
+      <v-text-field v-model="name" label="Name" required></v-text-field>
+      <v-text-field v-model="document" label="Document" required></v-text-field>
+      <v-text-field v-model="phone" label="Phone" required></v-text-field>
+      <v-text-field v-model="email" label="Email" required></v-text-field>
+      <v-select v-model="active" :items="['true', 'false']" label="Active" required></v-select>
       <v-btn type="submit" color="primary">Add Client</v-btn>
     </v-form>
   </v-card>
@@ -48,7 +27,7 @@ export default {
     };
   },
   methods: {
-    addClient() {
+    submitClient() {
       const client = {
         name: this.name,
         document: this.document,
@@ -56,15 +35,17 @@ export default {
         email: this.email,
         active: this.active === 'true'
       };
-      addClient(client)
-        .subscribe(() => {
-          this.$emit('add-client', client);
-          this.name = '';
-          this.document = '';
-          this.phone = '';
-          this.email = '';
-          this.active = 'true';
-        });
+      addClient(client).subscribe(() => {
+        this.$emit('add-client', client);
+        this.resetForm();
+      });
+    },
+    resetForm() {
+      this.name = '';
+      this.document = '';
+      this.phone = '';
+      this.email = '';
+      this.active = 'true';
     }
   }
 };

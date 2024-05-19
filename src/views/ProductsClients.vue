@@ -1,14 +1,23 @@
 <template>
-  <div>
-    <h1>Manage Clients</h1>
-    <ClientForm @add-client="addClient"/>
-    <ClientList :clients="clients" @toggle-active="toggleActive"/>
-  </div>
+  <v-container>
+    <v-row justify="center">
+      <v-col cols="12" md="8">
+        <h1 class="text-center">Manage Clients</h1>
+        <v-card class="pa-4 mb-4">
+          <ClientForm @add-client="addClient"/>
+        </v-card>
+        <v-card class="pa-4">
+          <ClientList :clients="clients" @toggle-active="toggleActive"/>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
 import ClientForm from '../components/ClientForm.vue';
 import ClientList from '../components/ClientList.vue';
+import { fetchClients } from '../services/apiService';
 
 export default {
   name: 'ProductsClients',
@@ -21,7 +30,15 @@ export default {
       clients: []
     };
   },
+  created() {
+    this.fetchClients();
+  },
   methods: {
+    fetchClients() {
+      fetchClients().subscribe(data => {
+        this.clients = data;
+      });
+    },
     addClient(client) {
       this.clients.push(client);
     },
@@ -38,5 +55,6 @@ export default {
 <style scoped>
 h1 {
   color: #2c3e50;
+  margin-bottom: 20px;
 }
 </style>

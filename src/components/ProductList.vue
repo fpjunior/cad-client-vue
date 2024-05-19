@@ -1,49 +1,53 @@
 <template>
-  <v-card class="pa-4">
-    <h2>Product List</h2>
-    <v-list>
-      <v-list-item
-        v-for="product in products"
-        :key="product.id"
-      >
-        <v-list-item-content>
-          <v-list-item-title>{{ product.name }}</v-list-item-title>
-          <v-list-item-subtitle>Active: {{ product.active ? 'Yes' : 'No' }}</v-list-item-subtitle>
-        </v-list-item-content>
-        <v-list-item-action>
-          <v-btn @click="toggleActive(product)" color="primary">Toggle Active</v-btn>
-        </v-list-item-action>
-      </v-list-item>
-    </v-list>
-  </v-card>
+  <div class="p-m-4">
+    <h2 class="text-center">Product List</h2>
+    <DataTable :value="products" responsiveLayout="scroll">
+      <Column field="name" header="Name"></Column>
+      <Column field="active" header="Active">
+        <template #body="slotProps">
+          {{ slotProps.data.active ? 'Yes' : 'No' }}
+        </template>
+      </Column>
+      <Column header="Actions">
+        <template #body="slotProps">
+          <Button label="Edit" icon="pi pi-pencil" class="p-button-rounded p-button-text p-mr-2" @click="editProduct(slotProps.data)" />
+        </template>
+      </Column>
+    </DataTable>
+  </div>
 </template>
 
 <script>
-import { fetchProducts, updateProduct } from '../services/apiService';
+import { DataTable } from 'primevue/datatable';
+import { Column } from 'primevue/column';
+import { Button } from 'primevue/button';
+import { fetchProducts } from '../services/apiService';
 
 export default {
   name: 'ProductList',
+  components: {
+    DataTable,
+    Column,
+    Button
+  },
   data() {
     return {
       products: []
     };
   },
   created() {
-    this.fetchProducts();
+    this.loadProducts();
   },
   methods: {
-    fetchProducts() {
-      fetchProducts()
-        .subscribe(data => {
-          this.products = data;
-        });
+    loadProducts() {
+      fetchProducts().subscribe(data => {
+        this.products = data;
+      }, error => {
+        console.error('Error fetching products:', error);
+      });
     },
-    toggleActive(product) {
-      product.active = !product.active;
-      updateProduct(product)
-        .subscribe(() => {
-          this.fetchProducts();
-        });
+    editProduct() {
+      // Lógica para editar o produto
     }
   }
 };

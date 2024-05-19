@@ -1,41 +1,17 @@
 <template>
-  <v-container>
-    <v-row justify="center">
-      <v-col cols="12" md="8">
-        <h1 class="text-center">Manage Products</h1>
-        <v-card class="pa-4">
-          <ProductForm @add-product="addProduct"/>
-          <ProductList :products="products" @toggle-active="toggleActive"/>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+  <div class="p-m-4">
+    <h1 class="text-center">Manage Products</h1>
+    <Button label="Add Product" icon="pi pi-plus" class="p-m-2" @click="navigate('/products/add')"></Button>
+    <Button label="View Products" icon="pi pi-list" class="p-m-2" @click="navigate('/products/list')"></Button>
+  </div>
 </template>
 
 <script>
-import ProductForm from '../components/ProductForm.vue';
-import ProductList from '../components/ProductList.vue';
-
 export default {
   name: 'ProductsDefault',
-  components: {
-    ProductForm,
-    ProductList
-  },
-  data() {
-    return {
-      products: []
-    };
-  },
   methods: {
-    addProduct(product) {
-      this.products.push(product);
-    },
-    toggleActive(product) {
-      const index = this.products.findIndex(p => p.name === product.name);
-      if (index !== -1) {
-        this.products[index].active = !this.products[index].active;
-      }
+    navigate(path) {
+      this.$router.push(path);
     }
   }
 };
