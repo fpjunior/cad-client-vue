@@ -1,9 +1,15 @@
 <template>
-  <div class="products">
-    <h1>Manage Products</h1>
-    <ProductForm @add-product="addProduct"/>
-    <ProductList :products="products" @toggle-active="toggleActive"/>
-  </div>
+  <v-container>
+    <v-row justify="center">
+      <v-col cols="12" md="8">
+        <h1 class="text-center">Manage Products</h1>
+        <v-card class="pa-4">
+          <ProductForm @add-product="addProduct"/>
+          <ProductList :products="products" @toggle-active="toggleActive"/>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -36,40 +42,8 @@ export default {
 </script>
 
 <style scoped>
-.products {
-  padding: 20px;
-}
-
 h1 {
   color: #2c3e50;
   margin-bottom: 20px;
-}
-
-button {
-  background-color: #42b983;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #369b74;
-}
-
-form {
-  margin-bottom: 20px;
-}
-
-label {
-  display: block;
-  margin: 10px 0 5px;
-}
-
-input, select {
-  padding: 10px;
-  width: 100%;
-  box-sizing: border-box;
-  margin-bottom: 10px;
 }
 </style>

@@ -1,13 +1,21 @@
 <template>
-  <div>
+  <v-card class="pa-4">
     <h2>Product List</h2>
-    <ul>
-      <li v-for="product in products" :key="product.name">
-        {{ product.name }} - Active: {{ product.active ? 'Yes' : 'No' }}
-        <button @click="toggleActive(product)">Toggle Active</button>
-      </li>
-    </ul>
-  </div>
+    <v-list>
+      <v-list-item
+        v-for="product in products"
+        :key="product.name"
+      >
+        <v-list-item-content>
+          <v-list-item-title>{{ product.name }}</v-list-item-title>
+          <v-list-item-subtitle>Active: {{ product.active ? 'Yes' : 'No' }}</v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-action>
+          <v-btn @click="toggleActive(product)" color="primary">Toggle Active</v-btn>
+        </v-list-item-action>
+      </v-list-item>
+    </v-list>
+  </v-card>
 </template>
 
 <script>
@@ -21,7 +29,7 @@ export default {
   },
   methods: {
     toggleActive(product) {
-      product.active = !product.active;
+      this.$emit('toggle-active', product);
     }
   }
 };
@@ -30,5 +38,6 @@ export default {
 <style scoped>
 h2 {
   color: #2c3e50;
+  margin-bottom: 20px;
 }
 </style>

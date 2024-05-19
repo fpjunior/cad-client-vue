@@ -1,12 +1,10 @@
 <template>
-  <div class="home">
+  <v-container>
     <h1>Home</h1>
-    <nav>
-      <router-link to="/products">Manage Products</router-link>
-      <router-link to="/clients">Manage Clients</router-link>
-      <router-link to="/associate">Associate Products to Clients</router-link>
-    </nav>
-  </div>
+    <v-btn color="primary" to="/products">Manage Products</v-btn>
+    <v-btn color="primary" to="/clients">Manage Clients</v-btn>
+    <v-btn color="primary" to="/associate">Associate Products to Clients</v-btn>
+  </v-container>
 </template>
 
 <script>
@@ -16,27 +14,8 @@ export default {
 </script>
 
 <style scoped>
-.home {
-  text-align: center;
-  margin-top: 50px;
-}
-
-nav {
-  margin: 20px 0;
-}
-
-nav a {
-  margin: 0 15px;
-  text-decoration: none;
-  color: #42b983;
-  font-weight: bold;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-
 h1 {
   color: #2c3e50;
+  margin-bottom: 20px;
 }
 </style>
