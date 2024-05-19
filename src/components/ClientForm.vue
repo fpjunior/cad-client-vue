@@ -1,36 +1,41 @@
 <template>
-  <div>
+  <v-card class="pa-4">
     <h2>New Client</h2>
-    <form @submit.prevent="addClient">
-      <div>
-        <label for="name">Name:</label>
-        <input type="text" v-model="name" required>
-      </div>
-      <div>
-        <label for="document">Document:</label>
-        <input type="text" v-model="document" required>
-      </div>
-      <div>
-        <label for="phone">Phone:</label>
-        <input type="text" v-model="phone" required>
-      </div>
-      <div>
-        <label for="email">Email:</label>
-        <input type="email" v-model="email" required>
-      </div>
-      <div>
-        <label for="active">Active:</label>
-        <select v-model="active" required>
-          <option value="true">Yes</option>
-          <option value="false">No</option>
-        </select>
-      </div>
-      <button type="submit">Add Client</button>
-    </form>
-  </div>
+    <v-form @submit.prevent="addClient">
+      <v-text-field
+        v-model="name"
+        label="Name"
+        required
+      ></v-text-field>
+      <v-text-field
+        v-model="document"
+        label="Document"
+        required
+      ></v-text-field>
+      <v-text-field
+        v-model="phone"
+        label="Phone"
+        required
+      ></v-text-field>
+      <v-text-field
+        v-model="email"
+        label="Email"
+        required
+      ></v-text-field>
+      <v-select
+        v-model="active"
+        :items="['true', 'false']"
+        label="Active"
+        required
+      ></v-select>
+      <v-btn type="submit" color="primary">Add Client</v-btn>
+    </v-form>
+  </v-card>
 </template>
 
 <script>
+import { addClient } from '../services/apiService';
+
 export default {
   name: 'ClientForm',
   data() {
@@ -51,13 +56,15 @@ export default {
         email: this.email,
         active: this.active === 'true'
       };
-      // Emit an event to the parent component to add the client
-      this.$emit('add-client', client);
-      this.name = '';
-      this.document = '';
-      this.phone = '';
-      this.email = '';
-      this.active = 'true';
+      addClient(client)
+        .subscribe(() => {
+          this.$emit('add-client', client);
+          this.name = '';
+          this.document = '';
+          this.phone = '';
+          this.email = '';
+          this.active = 'true';
+        });
     }
   }
 };
@@ -66,5 +73,6 @@ export default {
 <style scoped>
 h2 {
   color: #2c3e50;
+  margin-bottom: 20px;
 }
 </style>

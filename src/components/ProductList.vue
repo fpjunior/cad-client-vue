@@ -4,7 +4,7 @@
     <v-list>
       <v-list-item
         v-for="product in products"
-        :key="product.name"
+        :key="product.id"
       >
         <v-list-item-content>
           <v-list-item-title>{{ product.name }}</v-list-item-title>
@@ -19,17 +19,31 @@
 </template>
 
 <script>
+import { fetchProducts, updateProduct } from '../services/apiService';
+
 export default {
   name: 'ProductList',
-  props: {
-    products: {
-      type: Array,
-      required: true
-    }
+  data() {
+    return {
+      products: []
+    };
+  },
+  created() {
+    this.fetchProducts();
   },
   methods: {
+    fetchProducts() {
+      fetchProducts()
+        .subscribe(data => {
+          this.products = data;
+        });
+    },
     toggleActive(product) {
-      this.$emit('toggle-active', product);
+      product.active = !product.active;
+      updateProduct(product)
+        .subscribe(() => {
+          this.fetchProducts();
+        });
     }
   }
 };
